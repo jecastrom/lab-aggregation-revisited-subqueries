@@ -90,9 +90,8 @@ toc::[]
 
 xref:Lab-xxxx[Top Section]
 
-xref:Last-section[Bottom section]
 
-bla bla blafootnote:[{fn-xxx}]
+//bla bla blafootnote:[{fn-xxx}]
 
 
 ////
