@@ -1,4 +1,4 @@
-= Lab Aggregation Revisited & Sub queries
+= Lab Aggregation Revisited and Sub queries
 :stylesheet: boot-darkly.css
 :linkcss: boot-darkly.css
 :image-url-ironhack: https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png
@@ -66,6 +66,25 @@ toc::[]
 == Write the SQL queries to answer the following questions:
 
 * Select the first name, last name, and email address of all the customers who have rented a movie.
+
+`*_Answer:_*`
+
+```sql
+SELECT
+    concat((first_name), ' ', (last_name)) rental_customers,
+    email
+FROM
+    rental r
+    INNER JOIN customer USING (customer_id)
+GROUP BY
+    2
+ORDER BY
+    1;
+```
+
+image::pathhttps://user-images.githubusercontent.com/63274055/159163839-1a77da85-516c-4ad7-8294-d7a1fb977d47.png[width=800]
+
+
 
 * What is the average payment made by each customer (display the customer id, customer name (concatenated), and the average payment made).
 
