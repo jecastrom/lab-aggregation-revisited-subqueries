@@ -226,7 +226,7 @@ image::https://user-images.githubusercontent.com/63274055/159286420-292be6b7-4cd
 
 
 
-xref:Lab-Aggregation-Revisited-and-Sub-queries[Top Section]
+xref:Lab-Aggregation-Revisited-and-Sub-                         queries[Top Section]
 
 
 //bla bla blafootnote:[{fn-xxx}]
