@@ -113,6 +113,29 @@ image::https://user-images.githubusercontent.com/63274055/159277603-71ac69cf-f43
 
 * Select the name and email address of all the customers who have rented the "Action" movies.
 
+`*_Answer:_*`
+
+```sql
+SELECT
+    DISTINCT concat(c.first_name, ' ', c.last_name) customer_name,
+    c.email,
+    cat.name type_movies_rented
+FROM
+    rental r
+    INNER JOIN customer c USING (customer_id)
+    INNER JOIN inventory i USING (inventory_id)
+    INNER JOIN film_category fc ON i.film_id = fc.film_id
+    INNER JOIN category cat USING (category_id)
+WHERE
+    cat.name = 'Action'
+ORDER BY
+    customer_name;
+```
+
+image::https://user-images.githubusercontent.com/63274055/159280083-1ac2af0e-c697-447a-88e0-781e7cd9e802.png[width=800]
+
+
+
 ** Write the query using multiple join statements
 ** Write the query using sub queries with multiple WHERE clause and IN condition
 ** Verify if the above two queries produce the same results or not

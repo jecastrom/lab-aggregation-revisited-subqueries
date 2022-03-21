@@ -1,14 +1,16 @@
 SELECT
-    c.customer_id,
-    concat((c.first_name), ' ', (c.last_name)) rental_customers,
+    DISTINCT concat(c.first_name, ' ', c.last_name) customer_name,
     c.email,
-    format(avg(p.amount), 2, 'de_DE') average_payment_made
+    cat.name type_movies_rented
 FROM
-    payment p
+    rental r
     INNER JOIN customer c USING (customer_id)
-GROUP BY
-    1
+    INNER JOIN inventory i USING (inventory_id)
+    INNER JOIN film_category fc ON i.film_id = fc.film_id
+    INNER JOIN category cat USING (category_id)
+WHERE
+    cat.name = 'Action'
 ORDER BY
-    2
+    customer_name
 LIMIT
     5;
