@@ -63,7 +63,7 @@ toc::[]
 
 = Instructions:
 
-== Migrate the Sakila database to a cloud provider of your choice (research in progress)
+== Migrate the Sakila database to a cloud provider of your choice using the MySql and the cloud provider CLI  (research in progress)
 
 == Write the SQL queries to answer the following questions:
 
@@ -86,7 +86,9 @@ ORDER BY
 
 image::https://user-images.githubusercontent.com/63274055/159163839-1a77da85-516c-4ad7-8294-d7a1fb977d47.png[width=800]
 
-
+====
+''''
+====
 
 * What is the average payment made by each customer (display the customer id, customer name (concatenated), and the average payment made).
 
@@ -109,7 +111,9 @@ ORDER BY
 
 image::https://user-images.githubusercontent.com/63274055/159277603-71ac69cf-f437-4618-9bbb-0ee420f342cc.png[width=800]
 
-
+====
+''''
+====
 
 * Select the name and email address of all the customers who have rented the "Action" movies.
 
@@ -134,16 +138,85 @@ ORDER BY
 
 image::https://user-images.githubusercontent.com/63274055/159280083-1ac2af0e-c697-447a-88e0-781e7cd9e802.png[width=800]
 
+====
+''''
+====
 
 
-** Write the query using multiple join statements
 ** Write the query using sub queries with multiple WHERE clause and IN condition
-** Verify if the above two queries produce the same results or not
+
+`*_Answer:_*`
+
+```sql
+SELECT
+    DISTINCT concat(first_name, ' ', last_name) customer_name,
+    email,
+    (
+        SELECT
+            'Action'
+    ) type_movies_rented
+FROM
+    customer
+WHERE
+    customer_id IN (
+        SELECT
+            customer_id
+        FROM
+            rental
+        WHERE
+            inventory_id IN (
+                SELECT
+                    inventory_id
+                FROM
+                    inventory
+                WHERE
+                    film_id IN (
+                        SELECT
+                            film_id
+                        FROM
+                            film_category
+                        WHERE
+                            category_id IN (
+                                SELECT
+                                    category_id
+                                FROM
+                                    category
+                                WHERE
+                                    name = 'Action'
+                            )
+                    )
+            )
+    )
+ORDER BY
+    customer_name;
+```
+
+image::https://user-images.githubusercontent.com/63274055/159283381-074d59c3-c5aa-49f8-9472-c02797111b80.png[width=800]
+
+====
+''''
+====
+
 
 * Use the case statement to create a new column classifying existing columns as either or high value transactions based on the amount of payment. If the amount is between 0 and 2, label should be low and if the amount is between 2 and 4, the label should be medium, and if it is more than 4, then it should be high.
-====
-''''
-====
+
+`*_Answer:_*`
+
+```sql
+SELECT
+    *,
+    CASE
+        WHEN amount <= 2 THEN "low"
+        WHEN amount <= 4 THEN "medium"
+        WHEN amount > 4 THEN "high"
+    END AS classified_as
+FROM
+    payment;
+```
+
+image::https://user-images.githubusercontent.com/63274055/159286420-292be6b7-4cde-4954-8a89-62a3af8fa6a4.png[width=800]
+
+
 
 
 ====
@@ -153,7 +226,7 @@ image::https://user-images.githubusercontent.com/63274055/159280083-1ac2af0e-c69
 
 
 
-xref:Lab-xxxx[Top Section]
+xref:Lab-Aggregation-Revisited-and-Sub-queries[Top Section]
 
 
 //bla bla blafootnote:[{fn-xxx}]
