@@ -63,6 +63,8 @@ toc::[]
 
 = Instructions:
 
+== Migrate the Sakila database to a cloud provider of your choice
+
 == Write the SQL queries to answer the following questions:
 
 * Select the first name, last name, and email address of all the customers who have rented a movie.
