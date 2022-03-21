@@ -63,7 +63,7 @@ toc::[]
 
 = Instructions:
 
-== Migrate the Sakila database to a cloud provider of your choice
+== Migrate the Sakila database to a cloud provider of your choice (research in progress)
 
 == Write the SQL queries to answer the following questions:
 
@@ -89,6 +89,27 @@ image::https://user-images.githubusercontent.com/63274055/159163839-1a77da85-516
 
 
 * What is the average payment made by each customer (display the customer id, customer name (concatenated), and the average payment made).
+
+`*_Answer:_*`
+
+```sql
+SELECT
+    c.customer_id,
+    concat((c.first_name), ' ', (c.last_name)) rental_customers,
+    c.email,
+    format(avg(p.amount), 2, 'de_DE') average_payment_made
+FROM
+    payment p
+    INNER JOIN customer c USING (customer_id)
+GROUP BY
+    1
+ORDER BY
+    2;
+```
+
+image::https://user-images.githubusercontent.com/63274055/159277603-71ac69cf-f437-4618-9bbb-0ee420f342cc.png[width=800]
+
+
 
 * Select the name and email address of all the customers who have rented the "Action" movies.
 
